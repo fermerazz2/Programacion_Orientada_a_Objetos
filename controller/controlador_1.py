@@ -19,8 +19,12 @@ class Controlador:
         return registro
     
     @staticmethod
-    def revisar_id(id_auto):
-        pass
+    def revisar_id(ventana, id_auto):
+        registro = cochesBD.Autos.check_id(id_auto)
+        if registro:
+            view_1.View.modificar_autos_id(ventana, registro)
+        else:
+            messagebox.showinfo(icon="error", message=f"El id {id_auto} no se encuentra en la base de datos.")
 
     @staticmethod
     def respuesta_sql(respuesta):
@@ -37,4 +41,9 @@ class Controlador:
     @staticmethod
     def mostrar_camionetas():
         registro = cochesBD.Camionetas.consultar()
+        return registro
+
+    @staticmethod
+    def mostrar_camiones():
+        registro = cochesBD.Camiones.consultar()
         return registro

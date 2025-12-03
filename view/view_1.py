@@ -165,15 +165,16 @@ class View:
         lbl_titulo = Label(ventana, text="Vamos a modificar una entrada de Autos: ", justify="center")
         lbl_titulo.pack(pady=5)
 
+        id_auto = IntVar()
+
         lbl_titulo_2 = Label(ventana, text="Ingresa el ID del Auto a modificar: ", justify="center")
         lbl_titulo_2.pack(pady=5)
-        entry_titulo_2 = Entry(ventana, width=15, justify="center")
+        entry_titulo_2 = Entry(ventana, width=15, textvariable=id_auto, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Buscar", command="")
-        btn_buscar.pack(pady=5)
+        btn_buscar = Button(ventana, text="Buscar", command=controlador_1.Controlador.revisar_id(ventana, entry_titulo_2.get()))
 
-        btn_volver = Button(ventana, text="Volver", command=View.menu_acciones(ventana, "Autos"))
+        btn_volver = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Autos"))
         btn_volver.pack(pady=5)
     
     @staticmethod
@@ -247,7 +248,7 @@ class View:
         entry_titulo_2 = Entry(ventana, textvariable=id_auto, width=15, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Volver", command=View.menu_acciones(ventana, "Autos"))
+        btn_buscar = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Autos"))
         btn_buscar.pack(pady=5)
     
     #CAMIONETAS
