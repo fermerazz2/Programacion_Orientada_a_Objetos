@@ -325,9 +325,74 @@ class View:
         btn_volver.pack(pady=5)
 
     @staticmethod
-    def modificar_camioneta(ventana):
-        pass
-    
+    def modificar_camioneta(ventana, registro):
+        View.borrar_pantalla(ventana)
+
+        lbl_titulo = Label(ventana, text=f"Modificar un auto", justify="center")
+        lbl_titulo.pack(pady=5)
+
+        lbl_id = Label(ventana,text="ID de la operacion (No editable)")
+        lbl_id.pack(pady=5)
+
+        n_marca = StringVar(registro[1])
+        n_color = StringVar(registro[2])
+        n_modelo = IntVar(registro[3])
+        n_velocidad = IntVar(registro[4])
+        n_potencia = IntVar(registro[5])
+        n_plazas = IntVar(registro[6])
+        n_traccion = StringVar(registro[7])
+        n_cerrada = BooleanVar(registro[-1])
+
+        id_var = IntVar(value=registro[0])
+        entry_id = Entry(ventana, textvariable=id_var, width=10, justify="center", state="readonly")
+        entry_id.pack(pady=5)
+
+        lbl_marca = Label(ventana, text="Nueva Marca: ")
+        lbl_marca.pack(pady=5)
+        entry_marca = Entry(ventana, width=15, textvariable=n_marca, justify="center")
+        entry_marca.pack(pady=5)
+
+        lbl_color = Label(ventana, text="Nuevo Color: ")
+        lbl_color.pack(pady=5)
+        entry_color = Entry(ventana, width=15, justify="center")
+        entry_color.pack(pady=5)
+
+        lbl_modelo = Label(ventana, text="Nuevo Modelo: ")
+        lbl_modelo.pack(pady=5)
+        entry_modelo = Entry(ventana, width=15, justify="center")
+        entry_modelo.pack(pady=5)
+
+        lbl_velocidad = Label(ventana, text="Nueva Velocidad: ")
+        lbl_velocidad.pack(pady=5)
+        entry_velocidad = Entry(ventana, width=15, justify="center")
+        entry_velocidad.pack(pady=5)
+
+        lbl_potencia = Label(ventana, text="Nueva Potencia: ")
+        lbl_potencia.pack(pady=5)
+        entry_potencia = Entry(ventana, width=15, justify="center")
+        entry_potencia.pack(pady=5)
+
+        lbl_plazas = Label(ventana, text="Nuevo No. de Plazas: ")
+        lbl_plazas.pack(pady=5)
+        entry_plazas = Entry(ventana, width=15, justify="center")
+        entry_plazas.pack(pady=5)
+
+        lbl_traccion = Label(ventana, text="Traccion: ")
+        lbl_traccion.pack(pady=5)
+        entry_traccion = Entry(ventana, width=15, justify="center")
+        entry_traccion.pack(pady=5)
+
+        lbl_cerrada = Label(ventana, text="Cerrada: ")
+        lbl_cerrada.pack(pady=5)
+        entry_cerrada = Entry(ventana, width=15, justify="center")
+        entry_cerrada.pack(pady=5)
+
+        btn_guardar = Button(ventana, text="Guardar", command="")
+        btn_guardar.pack(pady=5)
+
+        btn_volver = Button(ventana, text="Guardar", command=lambda: View.modificar_camionetas_id(ventana))
+        btn_volver.pack(pady=5)
+
     #Falta eliminar de camionetas y hacer las interfaces de camiones
     @staticmethod
     def eliminar_camionetas(ventana):
