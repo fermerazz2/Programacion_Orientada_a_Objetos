@@ -172,8 +172,8 @@ class View:
         entry_titulo_2 = Entry(ventana, width=15, textvariable=id_auto, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Buscar", command=controlador_1.Controlador.revisar_id(ventana, entry_titulo_2.get()))
-
+        btn_buscar = Button(ventana, text="Buscar", command=lambda: controlador_1.Controlador.revisar_id(ventana, id_auto.get()))
+        btn_buscar.pack(pady=5)
         btn_volver = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Autos"))
         btn_volver.pack(pady=5)
     
@@ -187,14 +187,15 @@ class View:
         lbl_id = Label(ventana,text="ID de la operacion (No editable)")
         lbl_id.pack(pady=5)
 
-        n_marca = StringVar(registro[1])
-        n_color = StringVar(registro[2])
-        n_modelo = IntVar(registro[3])
-        n_velocidad = IntVar(registro[4])
-        n_potencia = IntVar(registro[5])
-        n_plazas = IntVar(registro[-1])
+        n_marca = StringVar(value=registro[1])
+        n_color = StringVar(value=registro[2])
+        n_modelo = IntVar(value=registro[3])
+        n_velocidad = IntVar(value=registro[4])
+        n_potencia = IntVar(value=registro[5])
+        n_plazas = IntVar(value=registro[6])
 
-        id_var = IntVar(value=registro[0])
+        id_valor = registro[0]
+        id_var = IntVar(value=id_valor)
         entry_id = Entry(ventana, textvariable=id_var, width=10, justify="center", state="readonly")
         entry_id.pack(pady=5)
 
@@ -205,33 +206,33 @@ class View:
 
         lbl_color = Label(ventana, text="Nuevo Color: ")
         lbl_color.pack(pady=5)
-        entry_color = Entry(ventana, width=15, justify="center")
+        entry_color = Entry(ventana, width=15, textvariable=n_color, justify="center")
         entry_color.pack(pady=5)
 
         lbl_modelo = Label(ventana, text="Nuevo Modelo: ")
         lbl_modelo.pack(pady=5)
-        entry_modelo = Entry(ventana, width=15, justify="center")
+        entry_modelo = Entry(ventana, width=15, textvariable=n_modelo, justify="center")
         entry_modelo.pack(pady=5)
 
         lbl_velocidad = Label(ventana, text="Nueva Velocidad: ")
         lbl_velocidad.pack(pady=5)
-        entry_velocidad = Entry(ventana, width=15, justify="center")
+        entry_velocidad = Entry(ventana, width=15, textvariable=n_velocidad, justify="center")
         entry_velocidad.pack(pady=5)
 
         lbl_potencia = Label(ventana, text="Nueva Potencia: ")
         lbl_potencia.pack(pady=5)
-        entry_potencia = Entry(ventana, width=15, justify="center")
+        entry_potencia = Entry(ventana, width=15, textvariable=n_potencia, justify="center")
         entry_potencia.pack(pady=5)
 
         lbl_plazas = Label(ventana, text="No. de Plazas: ")
         lbl_plazas.pack(pady=5)
-        entry_plazas = Entry(ventana, width=15, justify="center")
+        entry_plazas = Entry(ventana, width=15, textvariable=n_plazas, justify="center")
         entry_plazas.pack(pady=5)
 
-        btn_guardar = Button(ventana, text="Guardar", command="")
+        btn_guardar = Button(ventana, text="Guardar", command=lambda: controlador_1.Controlador.enviar_actualizacion(n_marca.get(), n_color.get(), n_modelo.get(), n_velocidad.get(), n_potencia.get(), n_plazas.get(), id_var.get()))
         btn_guardar.pack(pady=5)
 
-        btn_volver = Button(ventana, text="Guardar", command=lambda: View.modificar_autos_id(ventana))
+        btn_volver = Button(ventana, text="Volver", command=lambda: View.modificar_autos_id(ventana))
         btn_volver.pack(pady=5)
 
     @staticmethod
@@ -248,13 +249,15 @@ class View:
         entry_titulo_2 = Entry(ventana, textvariable=id_auto, width=15, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Autos"))
-        btn_buscar.pack(pady=5)
+        btn_eliminar = Button(ventana, text="Eliminar", command=lambda:"")
+        btn_eliminar.pack(pady=5)
+
+        btn_volver = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Autos"))
+        btn_volver.pack(pady=5)
     
     #CAMIONETAS
     @staticmethod 
     def insertar_camionetas(ventana):
-        View.borrar_pantalla(ventana)
 
         View.borrar_pantalla(ventana)
 
@@ -301,7 +304,11 @@ class View:
         entry_cerrada = Entry(ventana, width=15, justify="center")
         entry_cerrada.pack(pady=5)
 
-        btn_guardar = Button(ventana, text="Guardar", command="")
+        btn_guardar = Button(ventana, text="Guardar", command=lambda: controlador_1.Controlador.insertar_camioneta(
+            entry_marca.get(), entry_color.get(), entry_modelo.get(), 
+            entry_velocidad.get(), entry_potencia.get(), entry_plazas.get(),
+            entry_traccion.get(), entry_cerrada.get()
+        ))
         btn_guardar.pack(pady=5)
 
         btn_regresar = Button(ventana, text="Regresar", command=lambda: View.menu_acciones(ventana, "Camionetas"))
@@ -338,32 +345,34 @@ class View:
         entry_titulo_2 = Entry(ventana, width=15, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Buscar", command="")
+        btn_buscar = Button(ventana, text="Buscar", command=lambda: controlador_1.Controlador.revisar_id_camioneta(ventana, entry_titulo_2.get())) # OJO: entry_titulo_2 o la variable IntVar que uses
         btn_buscar.pack(pady=5)
 
         btn_volver = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Camionetas"))
         btn_volver.pack(pady=5)
 
+
     @staticmethod
     def modificar_camioneta(ventana, registro):
         View.borrar_pantalla(ventana)
-
-        lbl_titulo = Label(ventana, text=f"Modificar un auto", justify="center")
+        lbl_titulo = Label(ventana, text=f"Modificar Camioneta", justify="center")
         lbl_titulo.pack(pady=5)
 
         lbl_id = Label(ventana,text="ID de la operacion (No editable)")
         lbl_id.pack(pady=5)
 
-        n_marca = StringVar(registro[1])
-        n_color = StringVar(registro[2])
-        n_modelo = IntVar(registro[3])
-        n_velocidad = IntVar(registro[4])
-        n_potencia = IntVar(registro[5])
-        n_plazas = IntVar(registro[6])
-        n_traccion = StringVar(registro[7])
-        n_cerrada = BooleanVar(registro[-1])
+        n_marca = StringVar(value=registro[1])
+        n_color = StringVar(value=registro[2])
+        n_modelo = IntVar(value=registro[3])
+        n_velocidad = IntVar(value=registro[4])
+        n_potencia = IntVar(value=registro[5])
+        n_plazas = IntVar(value=registro[6])
+        n_traccion = StringVar(value=registro[7])
+        n_cerrada = StringVar(value=str(registro[8]))
 
-        id_var = IntVar(value=registro[0])
+        id_valor = registro[0]
+        id_var = IntVar(value=id_valor)
+        
         entry_id = Entry(ventana, textvariable=id_var, width=10, justify="center", state="readonly")
         entry_id.pack(pady=5)
 
@@ -407,11 +416,16 @@ class View:
         entry_cerrada = Entry(ventana, width=15, justify="center")
         entry_cerrada.pack(pady=5)
 
-        btn_guardar = Button(ventana, text="Guardar", command="")
+        btn_guardar = Button(ventana, text="Guardar Cambios", command=lambda: controlador_1.Controlador.enviar_actualizacion_camioneta(
+            n_marca.get(), n_color.get(), n_modelo.get(), n_velocidad.get(), 
+            n_potencia.get(), n_plazas.get(), n_traccion.get(), n_cerrada.get(), id_valor
+        ))
         btn_guardar.pack(pady=5)
 
-        btn_volver = Button(ventana, text="Guardar", command=lambda: View.modificar_camionetas_id(ventana))
+        btn_volver = Button(ventana, text="Volver", command=lambda: View.modificar_camionetas_id(ventana))
         btn_volver.pack(pady=5)
+
+
 
     
     @staticmethod
@@ -427,6 +441,9 @@ class View:
         lbl_titulo_2.pack(pady=5)
         entry_titulo_2 = Entry(ventana, textvariable=id_auto, width=15, justify="center")
         entry_titulo_2.pack(pady=5)
+
+        btn_eliminar = Button(ventana, text="Eliminar Registro", bg="red", fg="white", command=lambda: controlador_1.Controlador.eliminar_camioneta(id_auto.get())) # Asegúrate que id_auto es tu variable IntVar
+        btn_eliminar.pack(pady=5)
 
         btn_buscar = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Camionetas"))
         btn_buscar.pack(pady=5)

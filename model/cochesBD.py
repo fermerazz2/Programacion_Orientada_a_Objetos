@@ -36,7 +36,7 @@ class Autos:
     def actualizar(marca,color,modelo,velocidad,caballaje,plazas, id_coche):
         try:
             cursor.execute(
-                "update coches set marca=%s, color=%s, modelo=%s, velocidad=%s, caballaje=%s, plazas=%s where id_coche=%s",
+                "update coches set marca=%s, color=%s, modelo=%s, velocidad=%s, potencia=%s, plazas=%s where id=%s",
                 (marca, color, modelo, velocidad, caballaje, plazas, id_coche)
             )
             conexion.commit()
@@ -59,7 +59,7 @@ class Autos:
     def check_id(id_auto):
         try:
             cursor.execute(
-                "select * from operaciones where id=%s",(id_auto,)
+                "select * from coches where id=%s",(id_auto,)
             )
             return cursor.fetchone()
         except:
@@ -104,11 +104,21 @@ class Camionetas:
     @staticmethod
     def eliminar(id_camioneta):
         try:
-            cursor.execute("delete from camionetas where id_camioneta=%s", (id_camioneta,))
+            cursor.execute("delete from camionetas where id=%s", (id_camioneta,))
             conexion.commit()
             return True
         except:
             print("\n\t..:: No se pudo elmiminar ::..")
+            return False
+        
+    @staticmethod
+    def check_id(id_camioneta):
+        try:
+            cursor.execute(
+                "select * from camionetas where id_camioneta=%s",(id_camioneta,)
+            )
+            return cursor.fetchone()
+        except:
             return False
 
 class Camiones:

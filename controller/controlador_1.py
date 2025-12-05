@@ -20,9 +20,12 @@ class Controlador:
     
     @staticmethod
     def revisar_id(ventana, id_auto):
+        if not id_auto:
+            messagebox.showwarning("Error", "Debes ingresar un ID válido")
+            return
         registro = cochesBD.Autos.check_id(id_auto)
         if registro:
-            view_1.View.modificar_autos_id(ventana, registro)
+            view_1.View.modificar_auto(ventana, registro)
         else:
             messagebox.showinfo(icon="error", message=f"El id {id_auto} no se encuentra en la base de datos.")
 
@@ -34,8 +37,8 @@ class Controlador:
             messagebox.showerror(title="Estado",message=f"Fallo al realizar la accion")
 
     @staticmethod
-    def enviar_actualizacion(marca,color,modelo,velocidad,caballaje,plazas,id_auto):
-        respuesta = cochesBD.Autos.actualizar(marca,color,modelo,velocidad,caballaje,plazas,id_auto)
+    def enviar_actualizacion(marca,color,modelo,velocidad,potencia,plazas,id_auto):
+        respuesta = cochesBD.Autos.actualizar(marca,color,modelo,velocidad,potencia,plazas,id_auto)
         Controlador.respuesta_sql(respuesta)
 
     @staticmethod
@@ -47,3 +50,33 @@ class Controlador:
     def mostrar_camiones():
         registro = cochesBD.Camiones.consultar()
         return registro
+
+    @staticmethod
+    def insertar_camioneta(marca, color, modelo, velocidad, caballaje, plazas, traccion, cerrada):
+        res = cochesBD.Camionetas.insertar(marca, color, modelo, velocidad, caballaje, plazas, traccion, cerrada)
+        Controlador.respuesta_sql(res)
+        return res
+
+    @staticmethod
+    def revisar_id_camioneta(ventana, id_camioneta):
+        if not id_camioneta:
+            messagebox.showwarning("Error", "Debes ingresar un ID válido")
+            return
+        
+        registro = cochesBD.Camionetas.check_id(id_camioneta)
+        if registro:
+
+            view_1.View.modificar_camioneta(ventana, registro)
+        else:
+            messagebox.showinfo(icon="error", message=f"El ID {id_camioneta} no existe en Camionetas.")
+
+    @staticmethod
+    def enviar_actualizacion_camioneta(marca, color, modelo, velocidad, potencia, plazas, traccion, cerrada, id_camioneta):
+        res = cochesBD.Camionetas.actualizar(marca, color, modelo, velocidad, potencia, plazas, traccion, cerrada, id_camioneta)
+        Controlador.respuesta_sql(res)
+
+    @staticmethod
+    def eliminar_camioneta(id_camioneta):
+        if not id_camioneta: return
+        res = cochesBD.Camionetas.eliminar(id_camioneta)
+        Controlador.respuesta_sql(res)
