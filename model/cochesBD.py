@@ -166,3 +166,13 @@ class Camiones:
         except:
             print("\n\t..:: No se pudo elmiminar ::..")
             return False
+        
+    @staticmethod
+    def check_id(id_camion):
+        try:
+            cursor.execute(
+                "select * from camiones where id_camion=%s",(id_camion,)
+            )
+            return cursor.fetchone()
+        except:
+            return False

@@ -496,8 +496,15 @@ class View:
         entry_capacidad = Entry(ventana, width=15, justify="center")
         entry_capacidad.pack(pady=5)
 
-        btn_guardar = Button(ventana, text="Guardar", command="")
+        btn_guardar = Button(ventana, text="Guardar", command=lambda: controlador_1.Controlador.insertar_camion(
+            entry_marca.get(), entry_color.get(), entry_modelo.get(), 
+            entry_velocidad.get(), entry_potencia.get(), entry_plazas.get(),
+            entry_eje.get(), entry_capacidad.get()
+        ))
         btn_guardar.pack(pady=5)
+
+        btn_regresar = Button(ventana, text="Regresar", command=lambda: View.menu_acciones(ventana, "Camiones"))
+        btn_regresar.pack(pady=5)
 
         btn_regresar = Button(ventana, text="Regresar", command=lambda: View.menu_acciones(ventana, "Camiones"))
         btn_regresar.pack(pady=5)
@@ -530,10 +537,11 @@ class View:
 
         lbl_titulo_2 = Label(ventana, text="Ingresa el ID del Camion a modificar: ", justify="center")
         lbl_titulo_2.pack(pady=5)
-        entry_titulo_2 = Entry(ventana, width=15, justify="center")
+        id_camion = IntVar()
+        entry_titulo_2 = Entry(ventana, width=15, textvariable=id_camion, justify="center")
         entry_titulo_2.pack(pady=5)
 
-        btn_buscar = Button(ventana, text="Buscar", command="")
+        btn_buscar = Button(ventana, text="Buscar", command=lambda: controlador_1.Controlador.revisar_id_camion(ventana, id_camion.get()))
         btn_buscar.pack(pady=5)
 
         btn_volver = Button(ventana, text="Volver", command=lambda: View.menu_acciones(ventana, "Camiones"))

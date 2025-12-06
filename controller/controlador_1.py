@@ -80,3 +80,32 @@ class Controlador:
         if not id_camioneta: return
         res = cochesBD.Camionetas.eliminar(id_camioneta)
         Controlador.respuesta_sql(res)
+
+    @staticmethod
+    def insertar_camion(marca, color, modelo, velocidad, caballaje, plazas, eje, capacidad):
+        res = cochesBD.Camiones.insertar(marca, color, modelo, velocidad, caballaje, plazas, eje, capacidad)
+        Controlador.respuesta_sql(res)
+        return res
+
+    @staticmethod
+    def revisar_id_camion(ventana, id_camion):
+        if not id_camion:
+            messagebox.showwarning("Error", "Debes ingresar un ID válido")
+            return
+        
+        registro = cochesBD.Camiones.check_id(id_camion)
+        if registro:
+            view_1.View.modificar_camion(ventana, registro)
+        else:
+            messagebox.showinfo(icon="error", message=f"El ID {id_camion} no existe en Camiones.")
+
+    @staticmethod
+    def enviar_actualizacion_camion(marca, color, modelo, velocidad, potencia, plazas, eje, capacidad, id_camion):
+        res = cochesBD.Camiones.actualizar(marca, color, modelo, velocidad, potencia, plazas, eje, capacidad, id_camion)
+        Controlador.respuesta_sql(res)
+
+    @staticmethod
+    def eliminar_camion(id_camion):
+        if not id_camion: return
+        res = cochesBD.Camiones.eliminar(id_camion)
+        Controlador.respuesta_sql(res)
